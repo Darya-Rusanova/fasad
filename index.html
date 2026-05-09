@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ФАСАД38</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" href="icons/home.png">
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <div class="header__inner">
+                <div class="logo">
+                    <img src="icons/home.png" alt="Логотип" class="logo__img">
+                    <a href="#main">ФАСАД38 <span>термопанели для фасадов</span></a>
+                </div>
+                
+                <nav class="nav">
+                    <ul class="nav__list">
+                        <li><a href="#main">Главная</a></li>
+                        <li><a href="#advantage">Преимущества</a></li>
+                        <li><a href="#gallery">Галерея</a></li>
+                        <li><a href="#calculator">Калькулятор</a></li>
+                        <li><a href="#why-we">О нас</a></li>
+                        <li><a href="#contacts">Контакты</a></li>
+                    </ul>
+                </nav>
+                
+                <div class="header__contacts">
+                    <a href="tel:+79041117161" class="phone">8 (904) 111-71-61</a>
+                    <img src="icons/phone-call.png" alt="трубка" class="header__contacts__img">
+                </div>
+                
+                <button class="burger" id="burgerBtn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="main" class="hero">
+            <div class="hero__content">
+                <h6 class="hero__suptitle_city">Г. ИРКУТСК</h6>
+                <h5 class="hero__suptitle">ФАСАДНЫЕ ПАНЕЛИ</h5>
+                <h1 class="hero__title">СОВРЕМЕННЫЙ ФАСАД<br>ВАШЕГО ДОМА</h1>
+                <h6 class="hero__suptitle_city">Утепление + декор</h6>
+                <a href="#calculator" class="btn hero__btn">Рассчитать стоимость</a>
+            </div>
+        </section>
+        
+        <section id="advantage" class="advantages">
+            <div class="container">
+                <div class="advantages__header">
+                    <h2 class="section-title">Почему выбирают фасадные панели</h2>
+                    <p class="section-subtitle">
+                        Вентилируемый фасад — это надёжная защита дома, 
+                        экономия на коммунальных платежах и рост стоимости недвижимости.
+                    </p>
+                </div>
+                
+                <div class="advantages__grid">
+                    <div class="advantage-card">
+                        <div class="advantage-card__icon"></div>
+                        <h3 class="advantage-card__title">Долговечность</h3>
+                        <p class="advantage-card__text">
+                            Фасадные панели служат десятилетиями. Они устойчивы к влаге, 
+                            перепадам температур, ультрафиолету и механическим повреждениям.
+                        </p>
+                    </div>
+                    
+                    <div class="advantage-card">
+                        <div class="advantage-card__icon"></div>
+                        <h3 class="advantage-card__title">Энергосбережение</h3>
+                        <p class="advantage-card__text">
+                            Вентилируемый фасад с утеплителем снижает теплопотери дома до 40%. 
+                            Вы платите меньше за отопление и кондиционирование.
+                        </p>
+                    </div>
+                    
+                    <div class="advantage-card">
+                        <div class="advantage-card__icon"></div>
+                        <h3 class="advantage-card__title">Широкий выбор</h3>
+                        <p class="advantage-card__text">
+                            Имеет отделку  под кирпич, клинкер, эластичную штукатурку разных фракций и цветов
+                            Воплотите любой архитектурный замысел.
+                        </p>
+                    </div>
+                    
+                    <div class="advantage-card">
+                        <div class="advantage-card__icon"></div>
+                        <h3 class="advantage-card__title">Быстрый монтаж</h3>
+                        <p class="advantage-card__text">
+                            Панели не нагружают фундамент и несущие стены. Крепятся на клей-пену и дюбеля, можно монтировать самостоятельно.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="gallery" class="gallery">
+            <div class="container">
+                <div class="gallery__header">
+                    <h2 class="section-title">Примеры наших панелей</h2>
+                    <p class="section-subtitle">Фасадные мраморные термопанели на фасадном утеплителе Кnаuf Тhеrm Фасад Рrо для дышаших стен  толщиной 30-100мм</p>
+                </div>
+                
+                <div class="gallery__slider">
+                    <button class="slider-btn slider-btn--prev" id="prevBtn">‹</button>
+                    <div class="slider-container">
+                        <div class="slider-track" id="sliderTrack"></div>
+                    </div>
+                    <button class="slider-btn slider-btn--next" id="nextBtn">›</button>
+                </div>
+                <div class="slider-dots" id="sliderDots"></div>
+            </div>
+        </section>
+
+        <section id="calculator" class="calculator">
+            <div class="container">
+                <div class="calculator__header">
+                    <h2 class="section-title">Узнайте цену для вашего дома</h2>
+                    <p class="section-subtitle">
+                        Введите площадь — получите ориентировочную стоимость
+                    </p>
+                </div>
+                
+                <div class="calculator__card">
+                    <div class="calc-group">
+                        <label class="calc-label">
+                            <span class="calc-label__title">ПЛОЩАДЬ СТЕН</span>
+                            <div class="calc-input-wrapper">
+                                <input type="number" id="areaInput" class="calc-input" 
+                                    min="1" max="100" step="1" value="10">
+                                <span class="calc-label__unit">м²</span>
+                            </div>
+                        </label>
+                        <input type="range" id="areaSlider" class="calc-range" 
+                            min="1" max="1000" step="1" value="10">
+                        <div class="calc-range__marks">
+                            <span>1 м²</span>
+                            <span>1000 м²</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Результат -->
+                    <div class="result-card">
+                        <div class="result-card__title">Ориентировочная стоимость</div>
+                        <div class="result-card__price" id="totalPrice">0 ₽</div>
+                        <div class="result-card__details">
+                            <div class="detail-item">
+                                <span class="detail-label">Площадь:</span>
+                                <span class="detail-value" id="detailArea">10</span>
+                                <span>м²</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Кол-во панелей:</span>
+                                <span class="detail-value" id="detailPanels">0</span>
+                                <span>шт</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Цена за м²:</span>
+                                <span class="detail-value">2 400</span>
+                                <span>₽</span>
+                            </div>
+                        </div>
+                        <div class="result-card__note">
+                            * Одна панель (0.5 м²) — 1 200 ₽ <br>
+                            ** Для более точного расчета обратитесь к производителю по контактным данным 
+                        </div>
+                        <a href="#contacts" class="btn result-card__btn">Получить точный расчёт</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="why-we" class="why-we">
+            <div class="container">
+                <div class="why-we__header">
+                    <h2 class="section-title">Почему мы</h2>
+                    <p class="section-subtitle">Производитель термопанелей в Иркутске</p>
+                </div>
+                
+                <div class="why-we__grid">
+                    <div class="why-card">
+                        <div class="why-card__number">01</div>
+                        <h3 class="why-card__title">Производство 2 в 1</h3>
+                        <p class="why-card__text">
+                            Фасадные термопанели — это готовое решение для утепления и декоративной 
+                            отделки вашего дома за один шаг. Никакой сложной штукатурки и тяжёлого кирпича.
+                        </p>
+                    </div>
+                    
+                    <div class="why-card">
+                        <div class="why-card__number">02</div>
+                        <h3 class="why-card__title">Натуральный состав</h3>
+                        <p class="why-card__text">
+                            Защитный слой состоит из 70% мраморной или кварцевой крошки. 
+                            Панели не выгорают, не трескаются, срок службы — от 20 лет.
+                        </p>
+                    </div>
+                    
+                    <div class="why-card">
+                        <div class="why-card__number">03</div>
+                        <h3 class="why-card__title">Дышащие стены</h3>
+                        <p class="why-card__text">
+                            Основа — Кnаuf Тhеrm Фасад Рrо. Паропроницаемость как у сосновой доски. 
+                            Толщина 30, 50, 100 мм. Для бетонных стен — Пеноплекс.
+                        </p>
+                    </div>
+                    
+                    <div class="why-card">
+                        <div class="why-card__number">04</div>
+                        <h3 class="why-card__title">Без посредников</h3>
+                        <p class="why-card__text">
+                            Сами производим панели, поэтому гарантируем качество и лучшую цену. 
+                            Вся продукция имеет сертификаты РФ — пожарные и экологические.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contacts" class="contacts">
+            <div class="container">
+                <div class="contacts__header">
+                    <h2 class="section-title">Приезжайте смотреть образцы!</h2>
+                    <p class="section-subtitle">Проверьте качество лично</p>
+                </div>
+                
+                <div class="contacts__wrapper">
+                    <div class="contacts__info">
+                        <div class="contact-item">
+                            <div class="contact-item__label">АДРЕС</div>
+                            <div class="contact-item__value">​215-й квартал, г.Ангарск, Иркутская область​</div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-item__label">ТЕЛЕФОНЫ</div>
+                            <div class="contact-item__value">
+                                <a href="tel:+79041117161">8 (904) 111-71-61</a><br>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-item__label">РЕЖИМ РАБОТЫ</div>
+                            <div class="contact-item__value">
+                                Пн–Пт: 9:00 – 17:00<br>
+                                Сб–Вс: выходной
+                            </div>
+                        </div>
+                        
+        
+                    </div>
+                    <!-- Правая колонка: карта -->
+                    <div class="contacts__map">
+                        <iframe 
+                            src="https://yandex.ru/map-widget/v1/?ll=103.840599%2C52.497145&mode=whatshere&whatshere%5Bpoint%5D=103.840209%2C52.497481&whatshere%5Bzoom%5D=17&z=18.58"
+                            width="100%" 
+                            height="300" 
+                            frameborder="0"
+                            style="border-radius: 20px;">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

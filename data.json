@@ -1,0 +1,70 @@
+{
+    "gallery": [
+        {
+            "id": 1,
+            "image": "images/gallery/panel1.jpg",
+            "title": "Стандартный кирпич",
+            "description": "Бронзовый цвет",
+            "tags": ["кирпич", "терракота", "частный дом"]
+        },
+        {
+            "id": 2,
+            "image": "images/gallery/panel2.jpg",
+            "title": "Колотый кирпич",
+            "description": "Серый цвет",
+            "tags": ["камень", "коттедж", "энергоэффективный"]
+        },
+        {
+            "id": 3,
+            "image": "images/gallery/panel3.jpg",
+            "title": "Полуторный кирпич",
+            "description": "Красно-коричневый цвет",
+            "tags": ["полуторный кирпич", "бордовый", "красно-коричневый"]
+        },
+        {
+            "id": 4,
+            "image": "images/gallery/panel4.jpg",
+            "title": "Полуторный кирпич",
+            "description": "Перламутрово-золотой цвет",
+            "tags": ["кирпич", "лофт", "золотой"]
+        },
+        {
+            "id": 5,
+            "image": "images/gallery/panel5.jpg",
+            "title": "Стандартный кирпич",
+            "description": "Цвет серый графит",
+            "tags": ["кирпич", "лофт", "сервый"]
+        },
+        {
+            "id": 6,
+            "image": "images/gallery/panel6.jpg",
+            "title": "Колотый кирпич",
+            "description": "Цвет перламутрово-бежевый",
+            "tags": ["кирпич", "лофт", "бежевый"]
+        },
+        {
+            "id": 7,
+            "image": "images/gallery/panel7.jpg",
+            "title": "Стандартный кирпич",
+            "description": "Цвет слоновая кость",
+            "tags": ["кирпич", "лофт", "бежевый"]
+        }
+        ,
+        {
+            "id": 8,
+            "image": "images/gallery/panel8.jpg",
+            "title": "Стандартный кирпич",
+            "description": "Цвет винно-красный",
+            "tags": ["кирпич", "лофт", "красный"]
+        }
+        ,
+        {
+            "id": 9,
+            "image": "images/gallery/panel9.jpg",
+            "title": "Стандартный кирпич",
+            "description": "Цвет шоколадно-коричневый",
+            "tags": ["кирпич", "лофт", "коричневый"]
+        }
+
+    ]
+}
