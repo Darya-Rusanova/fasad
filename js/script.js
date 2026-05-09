@@ -51,7 +51,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 // === КАЛЬКУЛЯТОР ===
 const PANEL_PRICE = 1200;      // цена одной панели
-const PANEL_AREA = 0.6;        // площадь одной панели (м²)
+const PANEL_AREA = 0.5;        // площадь одной панели (м²)
 
 // Элементы DOM
 const areaSlider = document.getElementById('areaSlider');
