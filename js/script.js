@@ -125,13 +125,15 @@ if (getQuoteBtn) {
     });
 }
 
-// === ГАЛЕРЕЯ (карусель) ===
+// === ГАЛЕРЕЯ-КАРУСЕЛЬ (ПОЛНОСТЬЮ РАБОЧАЯ ВЕРСИЯ) ===
+
 let galleryData = [];
 let currentIndex = 0;
 let cardsPerView = 1;
 let totalCards = 0;
+let autoSlideInterval = null;
 
-// Загружаем данные
+// Загружаем данные из JSON
 async function loadGallery() {
     try {
         const response = await fetch('data.json');
@@ -139,11 +141,13 @@ async function loadGallery() {
         galleryData = data.gallery || [];
         renderGallery();
         initSlider();
+        //startAutoSlide(); // Автопрокрутка (опционально)
     } catch (error) {
-        console.error('Ошибка загрузки данных:', error);
+        console.error('Ошибка загрузки галереи:', error);
     }
 }
 
+// Рендер карточек галереи
 function renderGallery() {
     const track = document.getElementById('sliderTrack');
     if (!track) return;
@@ -156,28 +160,32 @@ function renderGallery() {
             <div class="gallery-card__content">
                 <h3 class="gallery-card__title">${item.title}</h3>
                 <p class="gallery-card__description">${item.description}</p>
+               
             </div>
         </div>
     `).join('');
 }
 
+// Определяем сколько карточек показывать
 function getCardsPerView() {
-    if (window.innerWidth <= 768) return 1;
-    if (window.innerWidth <= 1024) return 2;
-    return 3;
+    if (window.innerWidth <= 576) return 1;      // Телефоны
+    if (window.innerWidth <= 992) return 2;      // Планшеты
+    return 3;                                     // Компьютеры
 }
 
+// Обновляем ширину карточек
 function updateCardWidth() {
     const container = document.querySelector('.slider-container');
     const cards = document.querySelectorAll('.gallery-card');
     if (!container || !cards.length) return;
     
-    const gap = 30;
+    const gap = window.innerWidth <= 576 ? 15 : 30;
+    cardsPerView = getCardsPerView();
     let cardWidth;
     
-    if (window.innerWidth <= 768) {
-        cardWidth = container.clientWidth;
-    } else if (window.innerWidth <= 1024) {
+    if (cardsPerView === 1) {
+        cardWidth = container.clientWidth - 20;
+    } else if (cardsPerView === 2) {
         cardWidth = (container.clientWidth - gap) / 2;
     } else {
         cardWidth = (container.clientWidth - gap * 2) / 3;
@@ -190,7 +198,8 @@ function updateCardWidth() {
     return cardWidth;
 }
 
-function moveToSlide(index) {
+// Перемещение к слайду
+function moveToSlide(index, smooth = true) {
     const cards = document.querySelectorAll('.gallery-card');
     totalCards = cards.length;
     const maxIndex = Math.max(0, totalCards - cardsPerView);
@@ -200,14 +209,27 @@ function moveToSlide(index) {
     
     currentIndex = index;
     const cardWidth = updateCardWidth();
-    const offset = -currentIndex * (cardWidth + 30);
+    const gap = window.innerWidth <= 576 ? 15 : 30;
+    const offset = -currentIndex * (cardWidth + gap);
     
     const track = document.getElementById('sliderTrack');
-    if (track) track.style.transform = `translateX(${offset}px)`;
+    if (track) {
+        if (!smooth) {
+            track.style.transition = 'none';
+        } else {
+            track.style.transition = 'transform 0.4s ease-in-out';
+        }
+        track.style.transform = `translateX(${offset}px)`;
+        
+        setTimeout(() => {
+            if (track) track.style.transition = 'transform 0.4s ease-in-out';
+        }, 50);
+    }
     
     updateDots();
 }
 
+// Обновляем точки-индикаторы
 function updateDots() {
     const dots = document.querySelectorAll('.dot');
     const maxIndex = Math.max(0, totalCards - cardsPerView);
@@ -218,57 +240,122 @@ function updateDots() {
     });
 }
 
+// Создаём точки
 function createDots() {
     const container = document.getElementById('sliderDots');
     if (!container) return;
     
     container.innerHTML = '';
-    const dotsCount = Math.max(0, totalCards - cardsPerView + 1);
+    const dotsCount = Math.max(1, totalCards - cardsPerView + 1);
     
     for (let i = 0; i < dotsCount; i++) {
         const dot = document.createElement('div');
         dot.classList.add('dot');
         if (i === currentIndex) dot.classList.add('active');
         dot.addEventListener('click', () => {
+            stopAutoSlide();
             currentIndex = i;
-            moveToSlide(currentIndex);
+            moveToSlide(currentIndex, true);
+            startAutoSlide();
         });
         container.appendChild(dot);
     }
 }
 
-function initSlider() {
-    cardsPerView = getCardsPerView();
-    totalCards = document.querySelectorAll('.gallery-card').length;
+// === ПОДДЕРЖКА СВАЙПОВ НА ТЕЛЕФОНАХ ===
+let startX = 0;
+let isDragging = false;
+
+function addSwipeSupport() {
+    const track = document.getElementById('sliderTrack');
+    if (!track) return;
     
-    if (totalCards === 0) return;
+    track.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+        isDragging = true;
+       // stopAutoSlide();
+    }, { passive: true });
     
-    updateCardWidth();
-    createDots();
-    moveToSlide(0);
-    
+    track.addEventListener('touchend', (e) => {
+        if (!isDragging) return;
+        isDragging = false;
+        
+        const endX = e.changedTouches[0].clientX;
+        const diffX = endX - startX;
+        const swipeThreshold = 50;
+        
+        if (Math.abs(diffX) > swipeThreshold) {
+            if (diffX > 0) {
+                // Свайп вправо — предыдущий слайд
+                currentIndex--;
+                const maxIndex = Math.max(0, totalCards - cardsPerView);
+                if (currentIndex < 0) currentIndex = maxIndex;
+            } else {
+                // Свайп влево — следующий слайд
+                currentIndex++;
+                const maxIndex = Math.max(0, totalCards - cardsPerView);
+                if (currentIndex > maxIndex) currentIndex = 0;
+            }
+            moveToSlide(currentIndex, true);
+        }
+        //startAutoSlide();
+    });
+}
+
+
+// === КНОПКИ НАВИГАЦИИ ===
+// === КНОПКИ НАВИГАЦИИ (ИСПРАВЛЕННЫЕ) ===
+function initButtons() {
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
     
+    // Удаляем старые обработчики, если были
     if (prevBtn) {
-        prevBtn.onclick = () => {
+        const newPrev = prevBtn.cloneNode(true);
+        prevBtn.parentNode.replaceChild(newPrev, prevBtn);
+        newPrev.onclick = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            //stopAutoSlide();
             currentIndex--;
             const maxIndex = Math.max(0, totalCards - cardsPerView);
             if (currentIndex < 0) currentIndex = maxIndex;
-            moveToSlide(currentIndex);
+            moveToSlide(currentIndex, true);
+            //startAutoSlide();
         };
     }
     
     if (nextBtn) {
-        nextBtn.onclick = () => {
+        const newNext = nextBtn.cloneNode(true);
+        nextBtn.parentNode.replaceChild(newNext, nextBtn);
+        newNext.onclick = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            //stopAutoSlide();
             currentIndex++;
             const maxIndex = Math.max(0, totalCards - cardsPerView);
             if (currentIndex > maxIndex) currentIndex = 0;
-            moveToSlide(currentIndex);
+            moveToSlide(currentIndex, true);
+            //startAutoSlide();
         };
     }
 }
 
+// === ИНИЦИАЛИЗАЦИЯ СЛАЙДЕРА ===
+function initSlider() {
+    if (document.querySelectorAll('.gallery-card').length === 0) return;
+    
+    cardsPerView = getCardsPerView();
+    totalCards = document.querySelectorAll('.gallery-card').length;
+    
+    updateCardWidth();
+    createDots();
+    moveToSlide(0, false);
+    initButtons();
+    addSwipeSupport();
+}
+
+// === АДАПТАЦИЯ ПРИ ПОВОРОТЕ ЭКРАНА ===
 let resizeTimer;
 window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);
@@ -276,7 +363,7 @@ window.addEventListener('resize', () => {
         cardsPerView = getCardsPerView();
         updateCardWidth();
         createDots();
-        moveToSlide(currentIndex);
+        moveToSlide(currentIndex, false);
     }, 200);
 });
 

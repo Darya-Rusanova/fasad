@@ -114,7 +114,7 @@ filter: brightness(0) saturate(100%) invert(39%) sepia(98%) saturate(1234%) hue-
 }
 
 .header.scrolled .nav__list a:hover {
-    color: #d8e0ce;
+    color: #671e03;
 }
 
 /* Контакты в шапке */
@@ -151,7 +151,7 @@ filter: brightness(0) saturate(100%) invert(39%) sepia(98%) saturate(1234%) hue-
 .btn {
     text-decoration: none;
     background-color: #DC4C14;
-    color: #333;
+    color: #fff;
     border: none;
     padding: 10px 35px;
     border-radius: 30px;
@@ -276,7 +276,7 @@ filter: brightness(0) saturate(100%) invert(39%) sepia(98%) saturate(1234%) hue-
 .hero__btn {
     
     background-color: #DC4C14;
-    color: #333;
+    color: #fff;
     border: none;
     padding: 14px 40px;
     font-size: 16px;
@@ -392,7 +392,7 @@ filter: brightness(0) saturate(100%) invert(39%) sepia(98%) saturate(1234%) hue-
     color: #666;
 }
 
-/* ===== ГАЛЕРЕЯ-КАРУСЕЛЬ ===== */
+/* ===== ГАЛЕРЕЯ-КАРУСЕЛЬ (ЧИСТОВАЯ ВЕРСИЯ) ===== */
 .gallery {
     background-color: #f8f8f8;
     padding: 80px 0;
@@ -407,7 +407,8 @@ filter: brightness(0) saturate(100%) invert(39%) sepia(98%) saturate(1234%) hue-
     position: relative;
     display: flex;
     align-items: center;
-    gap: 15px;
+    justify-content: center;
+    gap: 20px;
 }
 
 /* Контейнер слайдера */
@@ -422,12 +423,13 @@ filter: brightness(0) saturate(100%) invert(39%) sepia(98%) saturate(1234%) hue-
     display: flex;
     gap: 30px;
     transition: transform 0.4s ease-in-out;
+    will-change: transform;
 }
 
 /* Карточка */
 .gallery-card {
-    flex: 0 0 calc(33.333% - 20px);
-    min-width: 280px;
+    flex-shrink: 0;
+    background: white;
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
@@ -435,15 +437,16 @@ filter: brightness(0) saturate(100%) invert(39%) sepia(98%) saturate(1234%) hue-
 }
 
 .gallery-card:hover {
-    transform: translateY(-8px);
+    transform: translateY(-5px);
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
 }
 
 /* Изображение */
 .gallery-card__image {
     width: 100%;
-    height: 250px;
+    aspect-ratio: 4 / 3;
     overflow: hidden;
+    background-color: #f0f0f0;
 }
 
 .gallery-card__image img {
@@ -451,6 +454,7 @@ filter: brightness(0) saturate(100%) invert(39%) sepia(98%) saturate(1234%) hue-
     height: 100%;
     object-fit: cover;
     transition: transform 0.3s ease;
+    display: block;
 }
 
 .gallery-card:hover .gallery-card__image img {
@@ -470,35 +474,38 @@ filter: brightness(0) saturate(100%) invert(39%) sepia(98%) saturate(1234%) hue-
 }
 
 .gallery-card__description {
-    font-size: 15px;
+    font-size: 14px;
     line-height: 1.5;
-    color: #DC4C14;
+    color: #666;
     margin-bottom: 15px;
 }
 
-/* Кнопки навигации */
+/* Кнопки навигации - ГЛАВНЫЕ СТИЛИ */
 .slider-btn {
-    width: 45px;
-    height: 45px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     background-color: #DC4C14;
     color: white;
     border: none;
-    font-size: 28px;
+    font-size: 30px;
+    font-weight: bold;
     cursor: pointer;
     transition: all 0.3s;
-    display: flex;
+    display: flex !important;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    z-index: 100;
+    position: relative;
 }
 
 .slider-btn:hover {
-    background-color: #DC4C14;
-    color: #333;
+    background-color: #b83d0f;
     transform: scale(1.05);
 }
 
+/* Точки */
 .slider-dots {
     display: flex;
     justify-content: center;
@@ -523,6 +530,45 @@ filter: brightness(0) saturate(100%) invert(39%) sepia(98%) saturate(1234%) hue-
 
 .dot:hover {
     background-color: #4A413C;
+}
+
+/* ===== АДАПТИВ ГАЛЕРЕИ ===== */
+@media (max-width: 992px) {
+    .slider-track {
+        gap: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .gallery {
+        padding: 50px 0;
+    }
+    
+    .slider-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 24px;
+    }
+    
+    .slider-track {
+        gap: 15px;
+    }
+    
+    .gallery-card__image {
+        aspect-ratio: 16 / 9;
+    }
+}
+
+@media (max-width: 480px) {
+    .slider-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 20px;
+    }
+    
+    .gallery-card__image {
+        aspect-ratio: 1 / 1;
+    }
 }
 
 /* ===== КАЛЬКУЛЯТОР ===== */
