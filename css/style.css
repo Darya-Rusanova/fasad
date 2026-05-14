@@ -44,7 +44,7 @@ body {
     color: #DC4C14;
 }
 
-.header.scrolled .phone {
+.header.scrolled .phone a {
     color: #DC4C14;
 }
 
@@ -124,7 +124,7 @@ filter: brightness(0) saturate(100%) invert(39%) sepia(98%) saturate(1234%) hue-
     gap: 10px;
 }
 
-.phone {
+.phone a{
     text-decoration: none;
     color: white;
     font-weight: bold;
@@ -140,7 +140,7 @@ filter: brightness(0) saturate(100%) invert(39%) sepia(98%) saturate(1234%) hue-
     transition: filter 0.3s;
 }
 
-.header.scrolled .phone {
+.header.scrolled .phone a{
     color: #DC4C14;
 }
 
