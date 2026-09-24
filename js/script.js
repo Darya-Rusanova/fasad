@@ -1,4 +1,4 @@
-// 1. ФУНКЦИОНАЛ ШАПКИ ПРИ СКРОЛЛЕ
+
 const header = document.querySelector('.header');
 
 window.addEventListener('scroll', () => {
@@ -9,7 +9,7 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// 2. БУРГЕР-МЕНЮ ДЛЯ МОБИЛЬНЫХ
+
 const burgerBtn = document.getElementById('burgerBtn');
 const nav = document.querySelector('.nav');
 
@@ -26,7 +26,7 @@ if (burgerBtn) {
     });
 }
 
-// 3. ЗАКРЫВАЕМ МЕНЮ ПРИ КЛИКЕ НА ССЫЛКУ
+
 document.querySelectorAll('.nav__list a').forEach(link => {
     link.addEventListener('click', () => {
         burgerBtn?.classList.remove('active');
@@ -35,7 +35,7 @@ document.querySelectorAll('.nav__list a').forEach(link => {
     });
 });
 
-// 4. ПЛАВНЫЙ СКРОЛЛ К ЯКОРЯМ
+
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
         e.preventDefault();
@@ -49,18 +49,18 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// === КАЛЬКУЛЯТОР ===
-const PANEL_PRICE = 1200;      // цена одной панели
-const PANEL_AREA = 0.5;        // площадь одной панели (м²)
 
-// Элементы DOM
+const PANEL_PRICE = 1200;      
+const PANEL_AREA = 0.5;        
+
+
 const areaSlider = document.getElementById('areaSlider');
 const areaInput = document.getElementById('areaInput');
 const totalPriceEl = document.getElementById('totalPrice');
 const detailArea = document.getElementById('detailArea');
 const detailPanels = document.getElementById('detailPanels');
 
-// Функция расчёта
+
 function calculateCost(area) {
     area = Math.round(area * 10) / 10;
     const panelsCount = Math.ceil(area / PANEL_AREA);
@@ -69,22 +69,22 @@ function calculateCost(area) {
     return { area, panels: panelsCount, total: totalCost };
 }
 
-// Функция обновления всего интерфейса
+
 function updateCalculator(value) {
-    // Ограничиваем значение
+ 
     let area = Math.min(1000, Math.max(1, value));
     area = Math.round(area);
     
     const result = calculateCost(area);
     
-    // Обновляем все элементы
+  
     if (areaSlider) areaSlider.value = area;
     if (areaInput) areaInput.value = area;
     if (totalPriceEl) totalPriceEl.textContent = result.total.toLocaleString('ru-RU') + ' ₽';
     if (detailArea) detailArea.textContent = result.area;
     if (detailPanels) detailPanels.textContent = result.panels;
     
-    // Анимация
+ 
     if (totalPriceEl) {
         totalPriceEl.style.transform = 'scale(1.05)';
         setTimeout(() => {
@@ -93,7 +93,7 @@ function updateCalculator(value) {
     }
 }
 
-// Обработчики (с проверкой на существование элементов)
+
 if (areaSlider) {
     areaSlider.addEventListener('input', (e) => {
         updateCalculator(parseInt(e.target.value));
@@ -115,7 +115,7 @@ if (areaInput) {
     });
 }
 
-// Кнопка "Получить точный расчёт"
+
 const getQuoteBtn = document.querySelector('.result-card__btn');
 if (getQuoteBtn) {
     getQuoteBtn.addEventListener('click', () => {
@@ -125,7 +125,7 @@ if (getQuoteBtn) {
     });
 }
 
-// === ГАЛЕРЕЯ-КАРУСЕЛЬ (ПОЛНОСТЬЮ РАБОЧАЯ ВЕРСИЯ) ===
+
 
 let galleryData = [];
 let currentIndex = 0;
@@ -133,7 +133,7 @@ let cardsPerView = 1;
 let totalCards = 0;
 let autoSlideInterval = null;
 
-// Загружаем данные из JSON
+
 async function loadGallery() {
     try {
         const response = await fetch('data.json');
@@ -147,7 +147,7 @@ async function loadGallery() {
     }
 }
 
-// Рендер карточек галереи
+
 function renderGallery() {
     const track = document.getElementById('sliderTrack');
     if (!track) return;
@@ -166,14 +166,14 @@ function renderGallery() {
     `).join('');
 }
 
-// Определяем сколько карточек показывать
+
 function getCardsPerView() {
-    if (window.innerWidth <= 576) return 1;      // Телефоны
-    if (window.innerWidth <= 992) return 2;      // Планшеты
-    return 3;                                     // Компьютеры
+    if (window.innerWidth <= 576) return 1;     
+    if (window.innerWidth <= 992) return 2;     
+    return 3;                                     
 }
 
-// Обновляем ширину карточек
+
 function updateCardWidth() {
     const container = document.querySelector('.slider-container');
     const cards = document.querySelectorAll('.gallery-card');
@@ -198,7 +198,7 @@ function updateCardWidth() {
     return cardWidth;
 }
 
-// Перемещение к слайду
+
 function moveToSlide(index, smooth = true) {
     const cards = document.querySelectorAll('.gallery-card');
     totalCards = cards.length;
@@ -229,7 +229,7 @@ function moveToSlide(index, smooth = true) {
     updateDots();
 }
 
-// Обновляем точки-индикаторы
+
 function updateDots() {
     const dots = document.querySelectorAll('.dot');
     const maxIndex = Math.max(0, totalCards - cardsPerView);
@@ -240,7 +240,7 @@ function updateDots() {
     });
 }
 
-// Создаём точки
+
 function createDots() {
     const container = document.getElementById('sliderDots');
     if (!container) return;
@@ -262,7 +262,7 @@ function createDots() {
     }
 }
 
-// === ПОДДЕРЖКА СВАЙПОВ НА ТЕЛЕФОНАХ ===
+
 let startX = 0;
 let isDragging = false;
 
@@ -303,13 +303,12 @@ function addSwipeSupport() {
 }
 
 
-// === КНОПКИ НАВИГАЦИИ ===
-// === КНОПКИ НАВИГАЦИИ (ИСПРАВЛЕННЫЕ) ===
+
 function initButtons() {
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
     
-    // Удаляем старые обработчики, если были
+
     if (prevBtn) {
         const newPrev = prevBtn.cloneNode(true);
         prevBtn.parentNode.replaceChild(newPrev, prevBtn);
@@ -341,7 +340,7 @@ function initButtons() {
     }
 }
 
-// === ИНИЦИАЛИЗАЦИЯ СЛАЙДЕРА ===
+
 function initSlider() {
     if (document.querySelectorAll('.gallery-card').length === 0) return;
     
@@ -355,7 +354,7 @@ function initSlider() {
     addSwipeSupport();
 }
 
-// === АДАПТАЦИЯ ПРИ ПОВОРОТЕ ЭКРАНА ===
+
 let resizeTimer;
 window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);
@@ -367,6 +366,6 @@ window.addEventListener('resize', () => {
     }, 200);
 });
 
-// ИНИЦИАЛИЗАЦИЯ
+
 updateCalculator(10);
 loadGallery();
